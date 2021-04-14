@@ -6,7 +6,7 @@ from datetime import datetime
 import pandas as pd
 
 #path for webdriver
-driverpath = "/Users/sikawit/OneDrive/_code/chromedriver"
+driverpath = "PATH for your chromedriver"
 
 #load data from csv file
 df = pd.read_csv("si126_namelist.csv")
