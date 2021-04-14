@@ -1,13 +1,13 @@
 # FarewellSI126
-Automated bot for sending celebration cards to SI126 friends
+Automated bot for sending celebration letters to SI126 friends
 
 ## Congrats!
 
-To celebrate my GSX-TU75 classmates at Siriraj Hospital (SI) -- more than a half of the class still study at the same faculty LoL, actually, in the parallel world, I would be graduated at SI -- who will become doctors to serve this country, I decided to code the automated script to congratulate them in the lonely holidays in Thailand. Thanks to the SI students union website that allow anyone to write their rememberances anonymously, based on Google Form service, it's possible to code this easy script to write for a lot amount of text with almost error-free to all of my classmates.
+To celebrate my GSX-TU75 classmates at Siriraj Hospital (SI) -- more than a half of the class still study at the same faculty LoL, actually, in the parallel world, I would be graduated at SI -- who will become doctors to serve this country, I decided to code the automated script to congratulate them in the lonely holidays in Thailand. Thanks to the SI students union website that allow anyone to write their remembrances anonymously, based on Google Form service, it's possible to code this easy script to write for a lot amount of text with almost error-free to all of my classmates.
 
-## What I do in this project - in a nutshell and in a human language
+## What do I do in this project - in a nutshell and in a human language
 
-I must find the URL - something that really long and unique on your address bar in Google Chrome - for each classmate in the students union website. Then find the Google Docs URL for each student to fill in my letter. Choosing only my classmates, writing a template letter then sent! That's it!
+I must find the URL - something that really long and unique on your address bar in Google Chrome - for each classmate in the students union website. Then find the Google Docs URL behind his/her URL for each student to fill in my letter. Choosing only my classmates, writing a template letter then sent! That's it!
 
 ## Technical Details
 ### Site
@@ -16,7 +16,6 @@ I must find the URL - something that really long and unique on your address bar 
 ### Code
 This script was written in `Python 3.8.5` with some importance libraries : `Beautifulsoup` for finding element in HTML code, `Selenium` for doing automated stuffs in a browser, `urllib` for dealing with network requests, `pandas` for dealing with some data in python.
 
-### The solution in this project
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
