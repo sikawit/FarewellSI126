@@ -4,10 +4,13 @@ from urllib.request import urlopen
 import urllib.error
 import pandas as pd
 
+#not a hardcode, set a global parameter
+num_students = 326
+
 #define func to find subfolder
 def find_folder(student_id : int):
     # Pudit's idea
-    if 0 < student_id <= 326:
+    if 0 < student_id <= num_students:
         return f"{str(student_id//50*50+1).zfill(3)}-{str(int(min((student_id+50)//50,6.52)*50)).zfill(3)}"
     return None
 
@@ -19,13 +22,13 @@ def url_si(student_id):
 # create blank list to collect url and HTTP response code
 urllist = list()
 checkerlist = list()
-for i in range(326 + 1):
+for i in range(num_students + 1):
     urllist.append(url_si(i))
 urllist[0] = ""
 
 
 #check that each person is exist or not
-for i in range(327):
+for i in range(num_students + 1):
     try:
         urlopen(url_si(i))
     except urllib.error.HTTPError as e:
@@ -37,7 +40,7 @@ for i in range(327):
 # finding name and real google doc path
 namelist = list()
 formlist = list()
-for i in range(327):
+for i in range(num_students + 1):
     if checkerlist[i] == 200:
         bsObj = BeautifulSoup(urlopen(urllist[i]))
         title = bsObj.find("h1").getText()
@@ -52,7 +55,7 @@ for i in range(327):
 #Check GSX, send to my high-school classmates
 #Because of duplicated nickname, plz check manually
 
-is_gsx = [False] * 327 #0 to 326 people in SI126 code
+is_gsx = [False] * (num_students+1) #0 to 326 people in SI126 code
 
 is_gsx[11] = True   # Max
 is_gsx[12] = True   # Film
