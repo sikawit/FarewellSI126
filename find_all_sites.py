@@ -5,25 +5,11 @@ import urllib.error
 import pandas as pd
 
 #define func to find subfolder
-def find_folder(student_id: int):
-    if student_id < 1 :
-        return None
-    elif student_id <= 50 :
-        return "001-050"
-    elif student_id <= 100 :
-        return "051-100"
-    elif student_id <= 150 :
-        return "101-150"
-    elif student_id <= 200 :
-        return "151-200"
-    elif student_id <= 250 :
-        return "201-250"
-    elif student_id <= 300 :
-        return "251-300"
-    elif student_id <= 326 :
-        return "301-326"
-    else:
-        return None
+def find_folder(student_id : int):
+    # Pudit's idea
+    if 0 < student_id <= 326:
+        return f"{str(student_id//50*50+1).zfill(3)}-{str(int(min((student_id+50)//50,6.52)*50)).zfill(3)}"
+    return None
 
 # define func to get url
 def url_si(student_id):
