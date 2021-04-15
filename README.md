@@ -22,6 +22,6 @@ Copyright (C) 2021, Sikkawit Amornnorachai Licensed under the MIT Licence (See t
 ## Nice to know
 This script is written with 5 hours of coding, debugging and learning from Youtube and stackoverflow and 1+ hours to write this Markdown file, 1 jar of orange juice, 1 bottle of water, and 1 pack of potato chip.
 
-Thanks @pudit for improving codes.
+Thanks @pudit for improving codes
 
 Made on a mac and VS Code.
