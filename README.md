@@ -3,7 +3,7 @@ Automated bot for sending celebration letters to SI126 friends
 
 ## Congrats!
 
-To celebrate my GSX-TU75 classmates at Siriraj Hospital (SI) -- more than a half of the class still study at the same faculty LoL, actually, in the parallel world, I would be graduated at SI -- who will become doctors to serve this country, I decided to code the automated script to congratulate them in the lonely holidays in Thailand. Thanks to the SI students union website that allow anyone to write their remembrances anonymously, based on Google Form service, it's possible to code this easy script to write for a lot amount of text with almost error-free to all of my classmates.
+To celebrate my GSX-TU75 classmates (and my friends) at Siriraj Hospital (SI) -- more than a half of the class still study at the same faculty LoL, actually, in the parallel world, I would be graduated at SI -- who will become doctors to serve this country, I decided to code the automated script to congratulate them in the lonely holidays in Thailand. Thanks to the SI students union website that allow anyone to write their remembrances anonymously, based on Google Form service, it's possible to code this easy script to write for a lot amount of text with almost error-free to all of my friends.
 
 ## What do I do in this project - in a nutshell and in a human language
 
@@ -11,7 +11,7 @@ I must find the URL - something that really long and unique on your address bar 
 
 ## Technical Details
 ### Site
-[This site](https://sites.google.com/view/seniorfarewell2021/home) is a collection site of each SI student. In each page, there are 2 Google Docs embedded objects (Text Form and File Uploading System form). Using the inspection tools in your browser, it's possible to find a Google Docs links to fill in my letter. In this project, I use only the text form object for this automation.
+[This site](https://sites.google.com/view/seniorfarewell2021/mirror) is a collection site of each SI student. In each page, there are 2 Google Docs embedded objects (Text Form and File Uploading System form). Using the inspection tools in your browser, it's possible to find a Google Docs links to fill in my letter. In this project, I use only the text form object for this automation.
 
 ### Code
 This script was written in `Python 3.8.5` with some important libraries : `Beautifulsoup` for finding element in HTML code, `Selenium` for doing automated stuffs in a browser with `Chromedriver`, `urllib` for dealing with network stuffs, `pandas` for dealing with some data in python.

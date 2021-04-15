@@ -9,9 +9,10 @@ num_students = 326
 
 #define func to find subfolder
 def find_folder(student_id : int) -> str:
-    # Pudit's idea
-    if 0 < student_id <= num_students:
-        return f"{str(student_id//50*50+1).zfill(3)}-{str(int(min((student_id+50)//50,num_students/50)*50)).zfill(3)}"
+    if 0 < student_id <= num_students :
+        lower_bound = (((student_id - 0.5)//50) * 50) + 1
+        upper_bound = min(lower_bound + 49, num_students)
+        return f"{int(lower_bound):03d}-{int(upper_bound):03d}"
     return None
 
 # define func to get url
@@ -19,94 +20,100 @@ def url_si(student_id: int) -> str:
     return f"https://sites.google.com/view/seniorfarewell2021/mirror/{find_folder(student_id)}/{student_id:03d}"
 
 
-# create blank list to collect url and HTTP response code
-urllist = list()
-checkerlist = list()
-for i in range(num_students + 1):
-    urllist.append(url_si(i))
-urllist[0] = ""
+def create_df():
+    # create blank list to collect url
+    urllist = list()
+    for i in range(num_students + 1):
+        urllist.append(url_si(i))
+
+    print("URL list is added!")
+
+    #check that each person is exist or not, by http response code
+    response_list = list()
+    for i in range(num_students + 1):
+        try:
+            urlopen(url_si(i))
+        except urllib.error.HTTPError as e:
+            response_list.append(404)
+        else:
+            response_list.append(200)
+
+    print("Response code list is added")
 
 
-#check that each person is exist or not
-for i in range(num_students + 1):
-    try:
-        urlopen(url_si(i))
-    except urllib.error.HTTPError as e:
-        checkerlist.append(404)
-    else:
-        checkerlist.append(200)
+    # finding name and real google doc path
+    namelist = list()
+    formURL_list = list()
+    for i in range(num_students + 1):
+        if response_list[i] == 200:
+            bsObj = BeautifulSoup(urlopen(urllist[i]), features="lxml")
+            title = bsObj.find("h1").getText()
+            gform = bsObj.find_all("a", href=True)[-2]['href'] #its on the 2nd on the last
+            namelist.append(title)
+            formURL_list.append(gform)
+        else:
+            namelist.append("NotFound 404")
+            formURL_list.append("404 Not Found")
 
+    print("Google Form URL list is added!")
 
-# finding name and real google doc path
-namelist = list()
-formlist = list()
-for i in range(num_students + 1):
-    if checkerlist[i] == 200:
-        bsObj = BeautifulSoup(urlopen(urllist[i]))
-        title = bsObj.find("h1").getText()
-        gform = bsObj.find_all("a", href=True)[-2]['href']
-        namelist.append(title)
-        formlist.append(gform)
-    else:
-        namelist.append("NotFound 404")
-        formlist.append("404 Not Found")
+    #Check GSX, send to my high-school classmates
+    #Because of duplicated nickname, plz check manually
 
+    friend_group = ['Blank'] * (num_students+1) #0 to 326 people in SI126
 
-#Check GSX, send to my high-school classmates
-#Because of duplicated nickname, plz check manually
+    # GSX - TU75
+    friend_group[11] = "GSX"    # Max
+    friend_group[12] = "GSX"    # Film
+    friend_group[23] = "GSX"    # Pea
+    friend_group[26] = "GSX"    # Poom
+    friend_group[28] = "GSX"    # Win Sukrit
+    friend_group[33] = "GSX"    # Krit Kitty
+    friend_group[37] = "GSX"    # Ball
+    friend_group[59] = "GSX"    # Ji
+    friend_group[61] = "GSX"    # Tong
+    friend_group[104] = "GSX"   # Now
+    friend_group[130] = "GSX"   # Pond
+    friend_group[139] = "GSX"   # Thames
+    friend_group[142] = "GSX"   # Win Nawin
+    friend_group[147] = "GSX"   # Jan
+    friend_group[164] = "GSX"   # Mhee
+    friend_group[185] = "GSX"   # Jane Glasses
+    friend_group[200] = "GSX"   # Ana
+    friend_group[209] = "GSX"   # Jane Juice
+    friend_group[232] = "GSX"   # Fangpao
+    friend_group[277] = "GSX"   # Guggug
+    friend_group[285] = "GSX"   # Ken Whale
+    friend_group[290] = "GSX"   # Bell Tao 
 
-is_gsx = [False] * (num_students+1) #0 to 326 people in SI126 code
+    friend_group[111] = "FND"   # Pete ST
+    friend_group[125] = "FND"   # Ham YW
+    friend_group[126] = "FND"   # Benz YW
+    friend_group[160] = "FND"   # Best YW
+    friend_group[190] = "FND"   # Bond Satit
+    friend_group[205] = "FND"   # Saxsax TU
+    friend_group[246] = "FND"   # Pop TU
 
-is_gsx[11] = True   # Max
-is_gsx[12] = True   # Film
-is_gsx[23] = True   # Pea
-is_gsx[26] = True   # Poom
-is_gsx[28] = True   # Win Sukrit
-is_gsx[33] = True   # Krit Kitty
-is_gsx[37] = True   # Ball
-is_gsx[59] = True   # Ji
-is_gsx[61] = True   # Tong
-is_gsx[104] = True  # Now
-is_gsx[130] = True  # Pond
-is_gsx[139] = True  # Thames
-is_gsx[142] = True  # Win Nawin
-is_gsx[147] = True  # Jan
-is_gsx[164] = True  # Mhee
-is_gsx[185] = True  # Jane Glasses
-is_gsx[200] = True  # Ana
-is_gsx[209] = True  # Jane Juice
-is_gsx[232] = True  # Fangpao
-is_gsx[277] = True  # Guggug
-is_gsx[285] = True  # Ken Whale
-is_gsx[290] = True  # Bell Tao 
+    print("Friends list is created!")
 
-#create pandas dataframe from lists
-si126_df = pd.DataFrame({
-    'url': urllist,
-    'formlink':formlist,
-    'title' : namelist,
-    'status': checkerlist,
-     "GSX" : is_gsx
-    })
+    #create pandas dataframe from lists
+    si126_df = pd.DataFrame({
+        'url' : urllist,
+        'formlink' : formURL_list,
+        'title' : namelist,
+        'status': response_list,
+        'friend_group' : friend_group
+        })
 
+    #save dataframe to csv
+    si126_df.to_csv("si126_namelist.csv")
+    print("Dataframe is written")
+    print("DONE!")
 
-#save dataframe to csv
-si126_df.to_csv("si126_namelist.csv")
+    return
 
+create_df()
 
-#cleaning some minor texts manually!, add some missing names, strip texts, do on text editors
-
-
-#read csv file after cleaning some dirts
-si126_df = pd.read_csv("si126_namelist.csv")
-
-
-#find his/her nickname
-si126_df["nickname"] = si126_df.title.str.split(" ",expand = True,n=1)[0]
-
-
-#export to csv again
-si126_df.to_csv("si126_namelist.csv")
 
 
 
