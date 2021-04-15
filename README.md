@@ -14,7 +14,7 @@ I must find the URL - something that really long and unique on your address bar 
 [This site](https://sites.google.com/view/seniorfarewell2021/mirror) is a collection site of each SI student. In each page, there are 2 Google Docs embedded objects (Text Form and File Uploading System form). Using the inspection tools in your browser, it's possible to find a Google Docs links to fill in my letter. In this project, I use only the text form object for this automation.
 
 ### Code
-This script was written in `Python 3.8.5` with some important libraries : `Beautifulsoup` for finding element in HTML code, `Selenium` for doing automated stuffs in a browser with `Chromedriver`, `urllib` for dealing with network stuffs, `pandas` for dealing with some data in python.
+This script was written in `Python 3.8.8` with some important libraries : `Beautifulsoup` for finding element in HTML code, `Selenium` for doing automated stuffs in a browser with `Chromedriver`, `urllib` for dealing with network stuffs, `pandas` for dealing with some data in python.
 
 ## Licence
 Copyright (C) 2021, Sikkawit Amornnorachai Licensed under the MIT Licence (See the `License` file)
