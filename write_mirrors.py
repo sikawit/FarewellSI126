@@ -46,8 +46,8 @@ Find out more at https://github.com/sikawit/FarewellSI126"""
         greeting_fill = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div[2]/textarea')
         greeting_fill.send_keys(greeting_txt)
 
-        # submit = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[3]/div[1]/div/div/span')
-        # submit.click()
+        submit = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[3]/div[1]/div/div/span')
+        submit.click()
 
         time.sleep(1)
 
