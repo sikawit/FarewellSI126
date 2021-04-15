@@ -16,7 +16,7 @@ def find_folder(student_id : int) -> str:
 
 # define func to get url
 def url_si(student_id: int) -> str:
-    return f"https://sites.google.com/view/seniorfarewell2021/mirror/{find_folder(i)}/{i:03d}"
+    return f"https://sites.google.com/view/seniorfarewell2021/mirror/{find_folder(student_id)}/{student_id:03d}"
 
 
 # create blank list to collect url and HTTP response code
