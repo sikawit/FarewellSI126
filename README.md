@@ -7,19 +7,21 @@ To celebrate my GSX-TU75 classmates at Siriraj Hospital (SI) -- more than a half
 
 ## What do I do in this project - in a nutshell and in a human language
 
-I must find the URL - something that really long and unique on your address bar in Google Chrome - for each classmate in the students union website then find the Google Docs URL behind his/her URL for each student to fill in my letter. Choosing only my classmates, writing a template letter, submitting the button! That's it!
+I must find the URL - something that really long and unique on your address bar in Google Chrome - for each classmate in the students union website then find the Google Docs URL behind his/her URL for each student to fill in my letter. This code is very simple just choosing only my classmates, writing a template letter, submitting the button! That's it!
 
 ## Technical Details
 ### Site
 [This site](https://sites.google.com/view/seniorfarewell2021/home) is a collection site of each SI student. In each page, there are 2 Google Docs embedded objects (Text Form and File Uploading System form). Using the inspection tools in your browser, it's possible to find a Google Docs links to fill in my letter. In this project, I use only the text form object for this automation.
 
 ### Code
-This script was written in `Python 3.8.5` with some importance libraries : `Beautifulsoup` for finding element in HTML code, `Selenium` for doing automated stuffs in a browser, `urllib` for dealing with network requests, `pandas` for dealing with some data in python.
+This script was written in `Python 3.8.5` with some important libraries : `Beautifulsoup` for finding element in HTML code, `Selenium` for doing automated stuffs in a browser, `urllib` for dealing with network requests, `pandas` for dealing with some data in python.
 
 ## Licence
-Copyright (C) 2021, Sikkawit Amornnorachai Licensed under the MIT Licence (See the `Licence` file)
+Copyright (C) 2021, Sikkawit Amornnorachai Licensed under the MIT Licence (See the `License` file)
 
 ## Nice to know
-This script was written with 5 hours of coding, debugging and learning from Youtube and stackoverflow and 1+ hours to write this Markdown file, 1 jar of orange juice, 1 bottle of water, and 1 pack of potato chip.
+This script is written with 5 hours of coding, debugging and learning from Youtube and stackoverflow and 1+ hours to write this Markdown file, 1 jar of orange juice, 1 bottle of water, and 1 pack of potato chip.
+
+Thanks @pudit for improving codes.
 
 Made on a mac and VS Code.

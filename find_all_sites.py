@@ -8,14 +8,14 @@ import pandas as pd
 num_students = 326
 
 #define func to find subfolder
-def find_folder(student_id : int):
+def find_folder(student_id : int) -> str:
     # Pudit's idea
     if 0 < student_id <= num_students:
-        return f"{str(student_id//50*50+1).zfill(3)}-{str(int(min((student_id+50)//50,6.52)*50)).zfill(3)}"
+        return f"{str(student_id//50*50+1).zfill(3)}-{str(int(min((student_id+50)//50,num_students/50)*50)).zfill(3)}"
     return None
 
 # define func to get url
-def url_si(student_id):
+def url_si(student_id: int) -> str:
     return f"https://sites.google.com/view/seniorfarewell2021/mirror/{find_folder(i)}/{i:03d}"
 
 
