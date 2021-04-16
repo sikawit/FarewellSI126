@@ -10,7 +10,7 @@ num_students = 326
 #define func to find subfolder
 def find_folder(student_id : int) -> str:
     if 0 < student_id <= num_students :
-        lower_bound = (((student_id - 0.5)//50) * 50) + 1
+        lower_bound = (((student_id - 1)//50) * 50) + 1
         upper_bound = min(lower_bound + 49, num_students)
         return f"{int(lower_bound):03d}-{int(upper_bound):03d}"
     return None
@@ -113,7 +113,3 @@ def create_df():
     return
 
 create_df()
-
-
-
-
