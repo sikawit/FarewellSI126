@@ -5,10 +5,10 @@ import datetime
 import pandas as pd
 
 def automate_sender(
-    driverpath : str = "Path to chromedriver",
-    sender_df_path : str = "si126_namelist.csv",
+    driverpath : str = "Path you your chromedriver",
     sender_file_path : str = "sender.txt",
-    greeting_file_path : str = "greeting.txt",
+    sender_df_path : str = "mdcu71_namelist.csv",
+    greeting_file_path : str = "greeting_mdcu.txt",
     in_production : bool = False
     ):
 
@@ -16,31 +16,30 @@ def automate_sender(
     if you want to run this code in production mode, please toggle in_production to True
     """
 
-    # load data from csv file
     df = pd.read_csv(sender_df_path)
-    urllist = list(df[(df.friend_group == "GSX")].formupload_url)
-    num_letters = len(urllist)
+    mdcu_list = list(df.mdcu_name)
+    
+    num_letters = len(mdcu_list)
+    letter_text = "letters"
+    if(num_letters == 1):
+        letter_text = "letter"
 
-    print(f"This script will send {num_letters} letter(s)")
+    mdcu_url = "https://docs.google.com/forms/d/e/1FAIpQLSe4W2RxromJwtqCq8ZzGvgHr6Zy6Bfm44nzcgDlgZeBuZfBGQ/viewform"
+
+    print(f"This script will send {num_letters} {letter_text}.")
 
     with open(sender_file_path, 'r') as sender_file:
         sender_txt = f"{sender_file.read()}".format(**locals()).strip()
 
-
-
     # sending mail merge
-    for i in range(len(urllist)):
+    for i in range(len(mdcu_url)):
         # rest time from previous session
         driver = webdriver.Chrome(driverpath)
         time.sleep(1)
 
-        sending_url = driver.get(urllist[i])
+        sending_url = driver.get(mdcu_url)
         
-        # Find Name base on Google Form's title
-        titlename = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[1]/div/div[2]/div').text
-        # Mirror to P'NAME NNN, split by space then choose 2nd elem, w/o "P'", w/o ()
-        receiver = titlename.split(' ')[2].replace("P'","").replace('(', '').replace(')', '').strip()
-        receiver_code = titlename.split(' ')[3].strip()
+        receiver = mdcu_list[i]
 
         now = datetime.datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S UTC%Z")
 
@@ -49,10 +48,13 @@ def automate_sender(
 
         time.sleep(2)
 
-        sender_fill = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input')
+        receiver_fill = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input')
+        receiver_fill.send_keys(receiver)
+
+        sender_fill = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input')
         sender_fill.send_keys(sender_txt)
 
-        greeting_fill = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div[2]/textarea')
+        greeting_fill = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div[2]/textarea')
         greeting_fill.send_keys(greeting_txt)
 
         if (in_production):
@@ -63,7 +65,7 @@ def automate_sender(
 
         driver.close()
 
-        print(f"({i+1}/{num_letters}) Letter to {receiver}:{receiver_code} is sent!")
+        print(f"({i+1}/{num_letters}) Letter to {receiver} is sent!")
 
     print("*********************")
     print("ALL LETTERS ARE SENT!")
@@ -72,4 +74,4 @@ def automate_sender(
     return
 
 if __name__ == "__main__" :
-    automate_sender(in_production=True)
+    automate_sender(in_production=False)
