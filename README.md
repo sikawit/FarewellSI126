@@ -5,6 +5,8 @@ Automated bot for sending celebration letters to SI126 friends
 
 To celebrate my GSX-TU75 classmates (and my friends) at Siriraj Hospital (SI) -- more than a half of the class still study at the same faculty LoL, actually, in the parallel world, I would be graduated at SI -- who will become doctors to serve this country, I decided to code the automated script to congratulate them in the lonely holidays in Thailand. Thanks to the SI students union website that allow anyone to write their remembrances anonymously, based on Google Form service, it's possible to code this easy script to write for a lot amount of text with almost error-free to all of my friends.
 
+(Updated 2021-04-17) My bot also works for my MDCU71 friends.
+
 ## What do I do in this project - in a nutshell and in a human language
 
 I must find the URL - something that really long and unique on your address bar in Google Chrome - for each classmate in the students union website then find the Google Docs URL behind his/her URL for each student to fill in my letter. This code is very simple just choosing only my classmates, writing a template letter, submitting the button! That's it!
