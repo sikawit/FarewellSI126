@@ -25,12 +25,12 @@ def automate_sender(
     if(num_letters == 1):
         letter_text = "letter"
 
-    print(f"This script will send {num_letters} {letter_text}")
+    if(not in_production):
+        print("You are in the TEST mode.")
+    print(f"This script will send {num_letters} {letter_text}.")
 
     with open(sender_file_path, 'r') as sender_file:
         sender_txt = f"{sender_file.read()}".format(**locals()).strip()
-
-
 
     # sending mail merge
     for i in range(len(urllist)):

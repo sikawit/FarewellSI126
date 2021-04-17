@@ -5,7 +5,7 @@ import datetime
 import pandas as pd
 
 def automate_sender(
-    driverpath : str = "Path you your chromedriver",
+    driverpath : str = "Path to chromedriver",
     sender_file_path : str = "sender.txt",
     sender_df_path : str = "mdcu71_namelist.csv",
     greeting_file_path : str = "greeting_mdcu.txt",
@@ -26,13 +26,16 @@ def automate_sender(
 
     mdcu_url = "https://docs.google.com/forms/d/e/1FAIpQLSe4W2RxromJwtqCq8ZzGvgHr6Zy6Bfm44nzcgDlgZeBuZfBGQ/viewform"
 
+    if(not in_production):
+        print("You are in the TEST mode.")
     print(f"This script will send {num_letters} {letter_text}.")
+    
 
     with open(sender_file_path, 'r') as sender_file:
         sender_txt = f"{sender_file.read()}".format(**locals()).strip()
 
     # sending mail merge
-    for i in range(len(mdcu_url)):
+    for i in range(len(mdcu_list)):
         # rest time from previous session
         driver = webdriver.Chrome(driverpath)
         time.sleep(1)
@@ -74,4 +77,4 @@ def automate_sender(
     return
 
 if __name__ == "__main__" :
-    automate_sender(in_production=False)
+    automate_sender(in_production=True)
