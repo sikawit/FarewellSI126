@@ -7,6 +7,8 @@ import pandas as pd
 def automate_sender(
     driverpath : str = "Path to your driver",
     sender_df_path : str = "si126_namelist.csv",
+    sender_file_path : str = "sender.txt",
+    greeting_file_path : str = "greeting.txt",
     in_production : bool = False
     ):
 
@@ -15,13 +17,13 @@ def automate_sender(
     """
 
     # load data from csv file
-    df = pd.read_csv("si126_namelist.csv")
+    df = pd.read_csv(sender_df_path)
     urllist = list(df[(df.friend_group == "GSX")].formlink)
     num_letters = len(urllist)
 
     print(f"This script will send {num_letters} letter(s)")
 
-    with open('sender.txt', 'r') as sender_file:
+    with open(sender_file_path, 'r') as sender_file:
         sender_txt = f"{sender_file.read()}".format(**locals()).strip()
 
     # sending mail merge
@@ -40,7 +42,7 @@ def automate_sender(
 
         now = datetime.datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S UTC%Z")
 
-        with open('greeting.txt', 'r') as greeting_file:
+        with open(greeting_file_path, 'r') as greeting_file:
             greeting_txt = f"{greeting_file.read()}".format(**locals()).strip()
 
         time.sleep(2)
