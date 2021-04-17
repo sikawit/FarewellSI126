@@ -19,7 +19,6 @@ def find_folder(student_id : int) -> str:
 def url_si(student_id: int) -> str:
     return f"https://sites.google.com/view/seniorfarewell2021/mirror/{find_folder(student_id)}/{student_id:03d}"
 
-
 def create_df():
     # create blank list to collect url
     urllist = list()
@@ -40,25 +39,28 @@ def create_df():
 
     print("Response code list is added")
 
-
     # finding name and real google doc path
     namelist = list()
-    formURL_list = list()
+    docformURL_list = list()
+    fileformURL_list = list()
     for i in range(num_students + 1):
         if response_list[i] == 200:
             bsObj = BeautifulSoup(urlopen(urllist[i]), features="lxml")
             title = bsObj.find("h1").getText()
-            gform = bsObj.find_all("a", href=True)[-2]['href'] #its on the 2nd on the last
+            doc_form = bsObj.find_all("a", href=True)[-2]['href'] #its on the 2nd from the last
+            file_form = bsObj.find_all("a", href=True)[-1]['href'] #its on the 1st from the last
             namelist.append(title)
-            formURL_list.append(gform)
+            docformURL_list.append(doc_form)
+            fileformURL_list.append(file_form)
         else:
             namelist.append("NotFound 404")
-            formURL_list.append("404 Not Found")
+            docformURL_list.append("404 Not Found")
+            fileformURL_list.append("404 Not Found")
 
     print("Google Form URL list is added!")
 
-    #Check GSX, send to my high-school classmates
-    #Because of duplicated nickname, plz check manually
+    # Check GSX, send to my high-school classmates
+    # Because of duplicated nickname, plz check manually
 
     friend_group = ['Blank'] * (num_students+1) #0 to 326 people in SI126
 
@@ -84,8 +86,9 @@ def create_df():
     friend_group[232] = "GSX"   # Fangpao
     friend_group[277] = "GSX"   # Guggug
     friend_group[285] = "GSX"   # Ken Whale
-    friend_group[290] = "GSX"   # Bell Tao 
+    friend_group[290] = "GSX"   # Bell Tao
 
+    # My friends list 
     friend_group[111] = "FND"   # Pete ST
     friend_group[125] = "FND"   # Ham YW
     friend_group[126] = "FND"   # Benz YW
@@ -96,20 +99,22 @@ def create_df():
 
     print("Friends list is created!")
 
-    #create pandas dataframe from lists
+    # create pandas dataframe from lists
     si126_df = pd.DataFrame({
         'url' : urllist,
-        'formlink' : formURL_list,
+        'formupload_url' : docformURL_list,
+        'fileupload_url' : fileformURL_list,
         'title' : namelist,
         'status': response_list,
         'friend_group' : friend_group
         })
 
-    #save dataframe to csv
+    # save dataframe to csv
     si126_df.to_csv("si126_namelist.csv")
     print("Dataframe is written")
     print("DONE!")
 
     return
 
-create_df()
+if __name__ == "__main__":
+    create_df()

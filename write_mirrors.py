@@ -1,20 +1,32 @@
 #import libraries
 from selenium import webdriver
 import time
-from datetime import datetime
+import datetime
 import pandas as pd
 
 def automate_sender(
-    driverpath : str = "Path to your webdriver",
-    sender_df_path : str = "si126_namelist.csv"):
+    driverpath : str = "Path to your driver",
+    sender_df_path : str = "si126_namelist.csv",
+    in_production : bool = False
+    ):
 
-    #load data from csv file
+    """
+    if you want to run this code in production mode, please toggle in_production to True
+    """
+
+    # load data from csv file
     df = pd.read_csv("si126_namelist.csv")
-    urllist = list(df[(df.friend_group == "FND") | (df.friend_group == "GSX")].formlink)
-        
-    #sending mail merge
+    urllist = list(df[(df.friend_group == "GSX")].formlink)
+    num_letters = len(urllist)
+
+    print(f"This script will send {num_letters} letter(s)")
+
+    with open('sender.txt', 'r') as sender_file:
+        sender_txt = f"{sender_file.read()}".format(**locals()).strip()
+
+    # sending mail merge
     for i in range(len(urllist)):
-        #rest time from previous session
+        # rest time from previous session
         driver = webdriver.Chrome(driverpath)
         time.sleep(1)
 
@@ -26,19 +38,12 @@ def automate_sender(
         receiver = titlename.split(' ')[2].replace("P'","").replace('(', '').replace(')', '').strip()
         receiver_code = titlename.split(' ')[3].strip()
 
-        time.sleep(1)
+        now = datetime.datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S UTC%Z")
 
-        sender_txt = "@sikawit"
-        greeting_txt = f"""Hi {receiver}! 
+        with open('greeting.txt', 'r') as greeting_file:
+            greeting_txt = f"{greeting_file.read()}".format(**locals()).strip()
 
-ยินดีด้วยครับคุณหมอ ในที่สุดก็เดินทางมาถึงเส้นชัยที่ยากที่สุดทางหนึ่งละครับ (ซึ่งผมขอหนีไปก่อน 555) ขอให้หมอเป็นหมอที่ดีครับ หวังว่าคงได้เจอกัน (คงไม่ใช่ในฐานะคนไข้นะ) หากมีอะไรที่ให้ช่วยได้ก็บอกมาได้ครัชช
-
-ยินดีอีกครั้งครับ
-Sake
-
-*****
-Generated from a bot on {datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S UTC%Z")}
-Find out more at https://github.com/sikawit/FarewellSI126"""
+        time.sleep(2)
 
         sender_fill = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input')
         sender_fill.send_keys(sender_txt)
@@ -46,14 +51,15 @@ Find out more at https://github.com/sikawit/FarewellSI126"""
         greeting_fill = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div[2]/textarea')
         greeting_fill.send_keys(greeting_txt)
 
-        submit = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[3]/div[1]/div/div/span')
-        submit.click()
+        if (in_production):
+            submit = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[3]/div[1]/div/div/span')
+            submit.click()
 
-        time.sleep(1)
+        time.sleep(2)
 
         driver.close()
 
-        print(f"Letter to {receiver}:{receiver_code} is sent!")
+        print(f"({i+1}/{num_letters}) Letter to {receiver}:{receiver_code} is sent!")
 
     print("*********************")
     print("ALL LETTERS ARE SENT!")
@@ -61,11 +67,5 @@ Find out more at https://github.com/sikawit/FarewellSI126"""
 
     return
 
-automate_sender()
-
-
-
-
-
-
-
+if __name__ == "__main__" :
+    automate_sender(in_production=True)
