@@ -5,7 +5,7 @@ import datetime
 import pandas as pd
 
 def automate_sender(
-    driverpath : str = "Path to your driver",
+    driverpath : str = "Path to chromedriver",
     sender_df_path : str = "si126_namelist.csv",
     sender_file_path : str = "sender.txt",
     greeting_file_path : str = "greeting.txt",
@@ -18,13 +18,15 @@ def automate_sender(
 
     # load data from csv file
     df = pd.read_csv(sender_df_path)
-    urllist = list(df[(df.friend_group == "GSX")].formlink)
+    urllist = list(df[(df.friend_group == "GSX")].formupload_url)
     num_letters = len(urllist)
 
     print(f"This script will send {num_letters} letter(s)")
 
     with open(sender_file_path, 'r') as sender_file:
         sender_txt = f"{sender_file.read()}".format(**locals()).strip()
+
+
 
     # sending mail merge
     for i in range(len(urllist)):
